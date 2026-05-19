@@ -13,12 +13,13 @@ def run_ai_convert_text_to_json(text_prompt):
 
     if MODE_REAL:
         return real_ai_convert_text_to_json(text_prompt)
-    elif SCENARIO is Scenario.INVALID:
-        return mock_all_invalid__ai_convert_text_to_json(text_prompt)
-    elif SCENARIO is Scenario.VALID:
-        return mock_all_valid__ai_convert_text_to_json(text_prompt)
-    elif SCENARIO is Scenario.PARTIAL:
-        return mock_partial_valid__ai_convert_text_to_json(text_prompt)
+    else:
+        if SCENARIO is Scenario.INVALID:
+            return mock_all_invalid__ai_convert_text_to_json(text_prompt)
+        elif SCENARIO is Scenario.VALID:
+            return mock_all_valid__ai_convert_text_to_json(text_prompt)
+        elif SCENARIO is Scenario.PARTIAL:
+            return mock_partial_valid__ai_convert_text_to_json(text_prompt)
 
 
 def mock_all_invalid__ai_convert_text_to_json(text_prompt):

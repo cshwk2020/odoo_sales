@@ -20,12 +20,13 @@ def run_mmr_pipeline(parsed_items):
 
     if MODE_REAL:
         return real_mmr_pipeline(parsed_items)
-    elif SCENARIO is Scenario.INVALID:
-        return mock_all_invalid__mmr_pipeline(parsed_items)
-    elif SCENARIO is Scenario.VALID:
-        return mock_all_valid__mmr_pipeline(parsed_items)
-    elif SCENARIO is Scenario.PARTIAL:
-        return mock_partial_valid__mmr_pipeline(parsed_items)
+    else:
+        if SCENARIO is Scenario.INVALID:
+            return mock_all_invalid__mmr_pipeline(parsed_items)
+        elif SCENARIO is Scenario.VALID:
+            return mock_all_valid__mmr_pipeline(parsed_items)
+        elif SCENARIO is Scenario.PARTIAL:
+            return mock_partial_valid__mmr_pipeline(parsed_items)
 
 
 def mock_all_invalid__mmr_pipeline(parsed_items):
