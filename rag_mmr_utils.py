@@ -10,23 +10,36 @@ from .config import LLM_API_MODEL_VER
 from .config import LLM_API_KEY  
 from .config import LLM_API_URL 
 from .config import PATH_MODEL, PATH_CHROMA_STORE
+from .config import MODE_REAL, SCENARIO, Scenario
 
 # -----------------------------
 # FUNCTION: run_mmr_pipeline
 # -----------------------------
 
-def mock_mmr_pipeline(parsed_items):
+def run_mmr_pipeline(parsed_items): 
 
-    # UC: ALL INVALID
-    """
+    if MODE_REAL:
+        return real_mmr_pipeline(parsed_items)
+    elif SCENARIO is Scenario.INVALID:
+        return mock_all_invalid__mmr_pipeline(parsed_items)
+    elif SCENARIO is Scenario.VALID:
+        return mock_all_valid__mmr_pipeline(parsed_items)
+    elif SCENARIO is Scenario.PARTIAL:
+        return mock_partial_valid__mmr_pipeline(parsed_items)
+
+
+def mock_all_invalid__mmr_pipeline(parsed_items):
+    # UC: ALL sale line items NOT FOUND
+    # email input: need a ABCX and HEJKX thx, kk
     return [
         {'name': None, 'qty': 1, 'confidence': 0.0, 'remark': 'no candidates found', 'status': 'error', 'input': 'ABCX'}, 
         {'name': None, 'qty': 1, 'confidence': 0.0, 'remark': 'no candidates found', 'status': 'error', 'input': 'HEJKX'}
     ]
-    """
 
-    # UC: ALL VALID
-    """
+
+def mock_all_valid__mmr_pipeline(parsed_items):
+    # UC: ALL sale line items FOUND
+    # email input: need a StainlessKettle, a great coffee machine, a new microwave oven 
     return [
         {
             "name": "Electric Kettle Stainless Steel",
@@ -50,9 +63,11 @@ def mock_mmr_pipeline(parsed_items):
             "status": "complete"
         }
     ]
-    """
 
-    # UC: PARTIAL VALID
+
+def mock_partial_valid__mmr_pipeline(parsed_items):
+    # UC: some sale line items FOUND, some NOT FOUND
+    # email input: eed a StainlessKettle, a ABCX, a new microwave oven 
     return [
         {
             "name": "Electric Kettle Stainless Steel",
@@ -78,7 +93,8 @@ def mock_mmr_pipeline(parsed_items):
     ]
 
 
-def run_mmr_pipeline(parsed_items):
+# deepseek  
+def real_mmr_pipeline(parsed_items):
     
     if all(item["status"] == "not_found" for item in parsed_items):
         return [
@@ -177,7 +193,7 @@ def run_mmr_pipeline(parsed_items):
     debugText("prompt: ")
     debugText(prompt)
 
- 
+
     headers = {"Authorization": f"Bearer {LLM_API_KEY}"}
     resp = requests.post(LLM_API_URL, json={
         "model": LLM_API_MODEL_VER,

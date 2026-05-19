@@ -6,12 +6,24 @@ from .app_utils import debugText
 from .config import LLM_API_MODEL_VER  
 from .config import LLM_API_KEY  
 from .config import LLM_API_URL 
+from .config import MODE_REAL, SCENARIO, Scenario
 
 
-def mock_ai_convert_text_to_json(text_prompt):
+def run_ai_convert_text_to_json(text_prompt):
 
-    # UC: ALL INVALID
-    """
+    if MODE_REAL:
+        return real_ai_convert_text_to_json(text_prompt)
+    elif SCENARIO is Scenario.INVALID:
+        return mock_all_invalid__ai_convert_text_to_json(text_prompt)
+    elif SCENARIO is Scenario.VALID:
+        return mock_all_valid__ai_convert_text_to_json(text_prompt)
+    elif SCENARIO is Scenario.PARTIAL:
+        return mock_partial_valid__ai_convert_text_to_json(text_prompt)
+
+
+def mock_all_invalid__ai_convert_text_to_json(text_prompt):
+     # UC: ALL sale line items NOT FOUND
+     # email input: need a ABCX and HEJKX thx, kk
     return [
         {
             "input": "ABCX",
@@ -26,27 +38,27 @@ def mock_ai_convert_text_to_json(text_prompt):
             "status": "not_found"
         }
     ]
-    """
 
-    # UC: ALL VALID
-    """
+def mock_all_valid__ai_convert_text_to_json(text_prompt):
+    # UC: ALL sale line items FOUND
+    # email input: need a StainlessKettle, a great coffee machine, a new microwave oven 
     return [
         {'input': 'StainlessKettle', 'candidates': ['stainless kettle'], 'qty': 1, 'status': 'exact'}, 
         {'input': 'a great coffee machine', 'candidates': ['coffee machine'], 'qty': 1, 'status': 'exact'}, 
         {'input': 'a new microwave oven', 'candidates': ['microwave oven'], 'qty': 1, 'status': 'exact'}
     ]
-    """
 
-    # UC: PARIAL VALID
+def mock_partial_valid__ai_convert_text_to_json(text_prompt):
+    # UC: some sale line items FOUND, some NOT FOUND
+    # email input: eed a StainlessKettle, a ABCX, a new microwave oven 
     return [
         {'input': 'StainlessKettle', 'candidates': ['Stainless Kettle'], 'qty': 1, 'status': 'exact'}, 
         {'input': 'ABCX', 'candidates': [], 'qty': 1, 'status': 'not_found'}, 
         {'input': 'new microwave oven', 'candidates': ['microwave oven'], 'qty': 1, 'status': 'exact'}
     ]
 
- 
- 
-def run_ai_convert_text_to_json(text_prompt):
+# deepseek  
+def real_ai_convert_text_to_json(text_prompt):
     headers = {
         "Authorization": f"Bearer {LLM_API_KEY}",
         "Content-Type": "application/json"

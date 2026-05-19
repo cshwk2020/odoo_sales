@@ -1,5 +1,5 @@
 import pytest
-from odoo_sales.rag_mmr_utils import run_mmr_pipeline 
+from odoo_sales.rag_mmr_utils import real_mmr_pipeline 
 
 
 @pytest.mark.skip(reason="temporarily disabled")
@@ -10,7 +10,7 @@ def test_run_mmr_pipeline_uc_all_invalid():
         {'input': 'HEJKX', 'candidates': [], 'qty': 1, 'status': 'not_found'}
     ]
 
-    result = run_mmr_pipeline(parsed_items)
+    result = real_mmr_pipeline(parsed_items)
     print("result: ", result)
 
 
@@ -38,7 +38,7 @@ def test_run_mmr_pipeline_uc_all_valid():
         }
     ]
 
-    result = run_mmr_pipeline(parsed_items)
+    result = real_mmr_pipeline(parsed_items)
     print("result: ", result)
 
 
@@ -66,7 +66,7 @@ def test_run_mmr_pipeline_uc_partial_valid():
         },
     ]
 
-    result = run_mmr_pipeline(parsed_items)
+    result = real_mmr_pipeline(parsed_items)
     print("result: ", result)
 
 

@@ -1,15 +1,15 @@
 import pytest
-from odoo_sales.ai_parse_utils import run_ai_convert_text_to_json 
+from odoo_sales.ai_parse_utils import real_ai_convert_text_to_json 
 
 
-@pytest.mark.skip(reason="temporarily disabled")
 def test_run_ai_convert_text_to_json_uc_all_invalid():
 
     text_prompt = """
         need a ABCX and HEJKX thx, kk
     """
 
-    run_ai_convert_text_to_json(text_prompt)
+    result = real_ai_convert_text_to_json(text_prompt)
+    print("result: ", result)
 
 
 @pytest.mark.skip(reason="temporarily disabled")
@@ -21,7 +21,7 @@ def test_run_ai_convert_text_to_json_uc_all_valid():
         thx, kk
     """
     
-    result = run_ai_convert_text_to_json(text_prompt)
+    result = real_ai_convert_text_to_json(text_prompt)
     print("result: ", result)
 
 
@@ -34,7 +34,7 @@ def test_run_ai_convert_text_to_json_uc_partial_valid():
         thx, kk
     """
     
-    result = run_ai_convert_text_to_json(text_prompt)
+    result = real_ai_convert_text_to_json(text_prompt)
     print("result: ", result)
 
 

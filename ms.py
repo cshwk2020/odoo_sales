@@ -10,8 +10,8 @@ from email.mime.multipart import MIMEMultipart
 from .globals import progress_queue, stop_flag
 from .app_utils import debugText
 from .vault_utils import vault_get_odoo_user, vault_get_odoo_pass
-from .ai_parse_utils import mock_ai_convert_text_to_json, run_ai_convert_text_to_json
-from .rag_mmr_utils import mock_mmr_pipeline, run_mmr_pipeline
+from .ai_parse_utils import run_ai_convert_text_to_json
+from .rag_mmr_utils import run_mmr_pipeline
 from .odoo_utils import get_sale_monitoring_record, update_sale_monitoring_status, get_or_create_partner, create_sale_order, create_sale_order_pdf, get_partner_email, get_sale_order_lines, send_notify_email, send_notify_email_failed
 from .email_utils import gmail_send, gmail_send_with_attachment
 
@@ -143,16 +143,14 @@ def run_job(odoo_user, odoo_pass, partner_id, email_data_json):
     debugText(f"run_job: partner_id={partner_id}, ")
 
     # Step 1: parse
-    parsed_items = mock_ai_convert_text_to_json(body)
-    #parsed_items = run_ai_convert_text_to_json(body)
+    parsed_items = run_ai_convert_text_to_json(body)
     debugText("parsed_items: ")
     debugText(parsed_items)
 
     if stop_flag.is_set(): return
 
     # Step 2: run pipeline
-    sale_items = mock_mmr_pipeline(parsed_items)
-    #sale_items = run_mmr_pipeline(parsed_items)
+    sale_items = run_mmr_pipeline(parsed_items)
     debugText("sale_items: ")
     debugText(sale_items)
 
