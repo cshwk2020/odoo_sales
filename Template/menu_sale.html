@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Sale Order</title>
+    <link href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', filename='bootstrap/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap/eventsource.min.js') }}"></script>
+ 
+</head>
+<body class="container mt-5">
+
+    <h2 class="mb-4">Odoo Sale Order Automation</h2>
+
+    <form id="saleForm" action="/automation" method="post">
+        <!-- Odoo credentials -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="odooUser" class="form-label">Odoo Username:</label>
+                <input type="text" id="odooUser" name="odooUser" class="form-control" value="{{ odooUser }}" required>
+            </div>
+            <div class="col-md-6">
+                <label for="odooPass" class="form-label">Odoo Password:</label>
+                <input type="password" id="odooPass" name="odooPass" class="form-control" value="{{ odooPass }}" required>
+            </div>
+        </div>
+
+        <!-- Text block input -->
+        <div class="mb-3">
+            <label for="textPrompt" class="form-label">Sale Request Text:</label>
+            <textarea id="textPrompt" name="textPrompt" class="form-control" rows="4"
+                      placeholder="enter sale order request...">
+                    need a StainlessKettle, a great coffee machine, a new microwave oven
+                    </textarea>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn btn-primary">Submit Sale Order</button>
+    </form>
+
+    <hr class="my-4">
+
+    <!-- Streaming output -->
+    <h5>Automation Progress:</h5>
+    <pre id="progressBox" class="border p-3 bg-light" style="height:200px; overflow:auto;"></pre>
+
+    <script>
+        
+        document.getElementById("saleForm").addEventListener("submit", function(e) {
+            e.preventDefault(); // 阻止跳頁
+            const formData = new FormData(this);
+
+            fetch("/automation", {
+                method: "POST",
+                body: formData
+            }).then(resp => resp.text())
+            .then(msg => {
+                // 可以顯示一個提示
+                document.getElementById("progressBox").textContent += msg + "\n";
+            });
+        });
+
+        // SSE stream
+        const progressBox = document.getElementById("progressBox");
+        const evtSource = new EventSource("/automation/stream");
+        evtSource.onmessage = function(e) {
+            progressBox.textContent += e.data + "\n";
+            progressBox.scrollTop = progressBox.scrollHeight;
+        };
+    </script>
+
+</body>
+</html>
