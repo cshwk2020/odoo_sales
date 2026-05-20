@@ -1,22 +1,26 @@
 
 >## Portfolio Project: automate incoming email of sale request to draft ODOO sale quotation records
 
-Introduction:
+Introduction: 
 ```
 - Sales teams often receive customer requests through email, 
 which are usually unstructured and require manual entry into ERP systems. 
 
-- This project addresses that challenge by building an automated pipeline that can parse incoming emails, validate the extracted information, 
-and generate draft quotations directly inside Odoo.
+- This project addresses that challenge by building an automated pipeline 
+that  can parse incoming emails, 
+validate the extracted information, and generate draft quotations directly inside Odoo.
 
-- The automation reduces repetitive manual work, improves accuracy, and ensures that staff only need to intervene when the email content is ambiguous. 
-By connecting email intake, parsing, validation, and ERP integration, the workflow demonstrates how AI and automation can streamline sales order processing.
+- The automation reduces repetitive manual work, improves accuracy, 
+and ensures that staff only need to intervene when the email content is ambiguous. 
+By connecting email intake, parsing, validation, and ERP integration, 
+the workflow demonstrates how AI and automation can streamline sales order processing.
 
 ```
 This project demonstrates how to use an automated pipeline to connect the flow:
 
 ```
-Gmail Received ( N8N ) → Parser (LLM) → Matching ODOO products Embeddings (RAG) → Auto-create Odoo Sale Order → Staff Gmail Reply | Manual Fix Odoo Sale Form And Reply.
+Gmail Received ( N8N ) → Parser (LLM) → Matching ODOO products Embeddings (RAG) 
+→ Auto-create Odoo Sale Order → Staff Gmail Reply | Manual Fix Odoo Sale Form And Reply.
 ```
 
 Business Benefits:
@@ -41,14 +45,18 @@ Our Test Cases covering three different scenarios:
 
 ### - python flask microservice: 
 
-after n8n received incoming gmail of dedicated staff email account, it will pass to python flask for processing the pipeline all the way from email body to auto-creating sale order records in ODOO backend.
+after n8n received incoming gmail of dedicated staff email account, 
+it will pass to python flask for processing the pipeline all the way 
+from email body to auto-creating sale order records in ODOO backend.
 
 [https://github.com/cshwk2020/odoo_sales/tree/main](https://github.com/cshwk2020/odoo_sales/tree/main)
 
 
 ### - ODOO module : automation_sale_monitoring 
     
-beside microservice, there is a ODOO module for staff to monitoring the automated sale email processing status, and manual edit and fix the sale order form when LLM has difficulty handling ambigous sale requests from email body.
+beside microservice, there is a ODOO module for staff to monitoring the automated sale email processing status, 
+and manual edit and fix the sale order form 
+when LLM has difficulty handling ambigous sale requests from email body.
 
 [https://github.com/cshwk2020/odoo/tree/19.0/addons/automation_sale_monitoring](https://github.com/cshwk2020/odoo/tree/19.0/addons/automation_sale_monitoring)
 
@@ -62,7 +70,8 @@ workflow summary:
 
 --> [ RAG matching JSON list with embedding of ODOO product listing of vector store chroma  ]
 
---> [ create ODOO Sale Monitoring record, optionally with FK linked to created sale order, if email body is clear enough to extract sale order details  ]
+--> [ create ODOO Sale Monitoring record, optionally with FK linked to created sale order, 
+if email body is clear enough to extract sale order details  ]
 
 --> [ gmail to staff to either 
 
@@ -148,7 +157,8 @@ headers = {
                     - If word is misspelled or ambiguous, status=ambiguous with multiple candidates.
                     - If consecutive words missing space, such as 'StainlessKettle', 
                         consider breaking them into 'Stainless', 'Kettle'.
-                    - If remaining keywords, after adjusted for misspelled, still not a valid word in dictionary, 
+                    - If remaining keywords, after adjusted for misspelled, 
+                        still not a valid word in dictionary, 
                         then such word might be garbage, then status=not_found with empty candidates. .
                     - If no reasonable candidate exists, status=not_found with empty candidates.
                     - Always output valid JSON array.
@@ -157,7 +167,10 @@ headers = {
             },
             {
                 "role": "user",
-                "content": f"Example output:\n{json.dumps(example_json, indent=2)}\n\nNow convert this order request into JSON: {text_prompt}"
+                "content": f"""
+                Example output: {json.dumps(example_json, indent=2)}
+                    Now convert this order request into JSON: {text_prompt}
+                """
             }
         ],
         "temperature": 0.5,
@@ -268,10 +281,13 @@ for code, data in merged_products.items():
         {payload}
 
         For each line item:
-        - Select the best candidate, but before matching it need fix each line item wordings according to these rules:
+        - Select the best candidate, but before matching it need fix each line item wordings 
+        according to these rules:
             Rules:
-                - If product name has a typo, correct it to the closest valid candidate, (e.g. "shiiping" → "shipping") where shipping appear in embeddings doc.
-                - If the item has variants (small/medium/large) and user did not specify, default to "Medium".
+                - If product name has a typo, correct it to the closest valid candidate, 
+                (e.g. "shiiping" → "shipping") where shipping appear in embeddings doc.
+                - If the item has variants (small/medium/large) and user did not specify, 
+                default to "Medium".
         - Compute confidence between 0 and 1:
             - 1 means top-1 is a clear winner (big gap with next).
             - 0 means top-1 and next are very close (hard to decide). 
@@ -281,14 +297,16 @@ for code, data in merged_products.items():
             - if confidence low, , confidence < 0.6, 
                 then, as example,  remark = "gap is tight, not safe"
             - else, is medium gap, as example, remark = "marginal safe"
-            - based on ai assigned confidence, ai need give corresponding remark to explain the confidence.
+            - based on ai assigned confidence, 
+            ai need give corresponding remark to explain the confidence.
         - Add a status field:
             - "complete" if confidence >= 0.8
             - "incomplete" otherwise
             - "error" if any processing error occurred
 
 
-        Return JSON in this example format (name is embedding metadatas name without code, which is matched product name in embeddings) :
+        Return JSON in this example format (name is embedding metadatas name without code, 
+        which is matched product name in embeddings) :
         [
             {{
                 "name": "Corrugated Shipping Box Medium",
@@ -1041,7 +1059,8 @@ def vault_get_deepseek_key():
 >  For next iteration, we focus in API Security Improvement
 
 ```
-- Email URLs, [ Reply Link ] and [ Manual Fix ] need to be protected by Google cloud callback or other security mechanism such as JWT.
+- Email URLs, [ Reply Link ] and [ Manual Fix ] need to be protected by Google cloud callback 
+or other security mechanism such as JWT.
 
 
 ```
