@@ -30,7 +30,7 @@ Gmail Received ( N8N ) → Parser (LLM) → Matching ODOO products Embeddings (R
 
 - RAG matching LLM parsed JSON list with ODOO product listing embeddings, which was initially sync from ODOO server into Chroma vector store embeddings.
 
-- auto create ODOO sale order and sale monitoring records.
+- auto create ODOO sale order from RAG matched outputs, and auto sale monitoring records for tracking automation status or update status by staff.
 
 - staff only need one click to reply to sender from auto created sale quotation.
 
