@@ -81,6 +81,7 @@ from email body to auto-creating sale order records in ODOO backend.
 
 - test/* : unit testing by pytest -s
 
+- data/odoo_product_listing.xlsx : odoo product listing for convert into embeddings to chroma
 
 ### - ODOO module : automation_sale_monitoring 
     
