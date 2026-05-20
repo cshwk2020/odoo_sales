@@ -2,7 +2,7 @@
 >## Portfolio Project: automate incoming email of sale request to draft ODOO sale quotation records
 
 Introduction: 
-```
+
 - Sales teams often receive customer requests through email, 
 which are usually unstructured and require manual entry into ERP systems. 
 
@@ -15,27 +15,26 @@ and ensures that staff only need to intervene when the email content is ambiguou
 By connecting email intake, parsing, validation, and ERP integration, 
 the workflow demonstrates how AI and automation can streamline sales order processing.
 
-```
+
 This project demonstrates how to use an automated pipeline to connect the flow:
 
-```
 Gmail Received ( N8N ) → Parser (LLM) → Matching ODOO products Embeddings (RAG) 
 → Auto-create Odoo Sale Order → Staff Gmail Reply | Manual Fix Odoo Sale Form And Reply.
-```
+
 
 Business Benefits:
-```
+
 - Reduce manual data entry
 - Improve accuracy
-```
+
 
 Our Test Cases covering three different scenarios:
-```
+
 - All line items valid
 - All line items invalid
 - Some line items valid
 
-```
+
 
 
 
