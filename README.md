@@ -62,7 +62,7 @@ when LLM has difficulty handling ambigous sale requests from email body.
 ---
 
 workflow summary: 
-```
+
 [ Gmail on_received by N8N ] 
 
 --> [ LLM Parse Email Body to JSON list of { product name , qty } ]
@@ -78,7 +78,7 @@ if email body is clear enough to extract sale order details  ]
         or 
         ( manual fix by navigate to ODOO Sale Monitoring record ) 
     ]
-```
+
 
 ---
 
