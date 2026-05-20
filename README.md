@@ -22,6 +22,19 @@ Gmail Received ( N8N ) → Parser (LLM) → Matching ODOO products Embeddings (R
 → Auto-create Odoo Sale Order → Staff Gmail Reply | Manual Fix Odoo Sale Form And Reply.
 
 
+Key pipeline steps:
+
+- N8N receive sale quotation request,
+
+- Parser (LLM) needed to clean up and extract sale-related information such as JSON list of { product name and qty },
+
+- RAG matching LLM parsed JSON list with ODOO product listing embeddings, which was initially sync from ODOO server into Chroma vector store embeddings.
+
+- auto create ODOO sale order and sale monitoring records.
+
+- staff only need one click to reply to sender from auto created sale quotation.
+
+
 Business Benefits:
 
 - Reduce manual data entry
