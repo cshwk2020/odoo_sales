@@ -12,8 +12,8 @@ validate the extracted information, and generate draft quotations directly insid
 
 - The automation reduces repetitive manual work, improves accuracy, 
 and ensures that staff only need to intervene when the email content is ambiguous. 
-By connecting email intake, parsing, validation, and ERP integration, 
-the workflow demonstrates how AI and automation can streamline sales order processing.
+By connecting email intake, parsing, rag matching odoo products, and ERP auto sale record creation, 
+the workflow demonstrates AI automation of sales order processing.
 
 
 This project demonstrates how to use an automated pipeline to connect the flow:
