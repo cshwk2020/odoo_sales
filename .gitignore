@@ -1,7 +1,6 @@
 token.json
 credentials.json
 web_credentials.json
-vault_utils.py
 __pycache__
 __pycache__/
 */__pycache__/
