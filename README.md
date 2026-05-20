@@ -869,7 +869,6 @@ def mock_partial_valid__ai_convert_text_to_json(text_prompt):
 
 > Mocking RAG MMR matching query parsed JSON list with ODOO product listing embedding in chroma vectore store 
 ```
-
 def run_mmr_pipeline(parsed_items): 
 
     if MODE_REAL:
