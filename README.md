@@ -84,17 +84,15 @@ if email body is clear enough to extract sale order details  ]
 
 > ## workflow illustration with screenshots and simplfied code snippets
 
-```
 for full source code, please reference in our github repo. 
 
 Here we simplfied code snippets by trimming away some details for improved readbility on core logic.
-```
+
 
 ### - sale order email from potential buyer
 
 ![](./odoo_sales_doc/uc_all_valid/gmail_request_s2_uc_all_valid.jpg)
  
-
 
 ### - n8n intercept the sale order email and pass to our microservice ms.py
 
