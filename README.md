@@ -146,7 +146,8 @@ headers = {
                       such as 'good', 'best', 'great', 'nice', 'cheap'.
                     - If word is clear, status=exact with one candidate.
                     - If word is misspelled or ambiguous, status=ambiguous with multiple candidates.
-                    - If consecutive words missing space, such as 'StainlessKettle', consider breaking them into 'Stainless', 'Kettle'.
+                    - If consecutive words missing space, such as 'StainlessKettle', 
+                        consider breaking them into 'Stainless', 'Kettle'.
                     - If remaining keywords, after adjusted for misspelled, still not a valid word in dictionary, 
                         then such word might be garbage, then status=not_found with empty candidates. .
                     - If no reasonable candidate exists, status=not_found with empty candidates.
@@ -275,8 +276,10 @@ for code, data in merged_products.items():
             - 1 means top-1 is a clear winner (big gap with next).
             - 0 means top-1 and next are very close (hard to decide). 
         - Add a remark explaining the decision:
-            - if confidence high, confidence >= 0.8, then, as example, remark = "clear winner" 
-            - if confidence low, , confidence < 0.6, then, as example,  remark = "gap is tight, not safe"
+            - if confidence high, confidence >= 0.8, 
+                then, as example, remark = "clear winner" 
+            - if confidence low, , confidence < 0.6, 
+                then, as example,  remark = "gap is tight, not safe"
             - else, is medium gap, as example, remark = "marginal safe"
             - based on ai assigned confidence, ai need give corresponding remark to explain the confidence.
         - Add a status field:
