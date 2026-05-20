@@ -75,6 +75,13 @@ when LLM has difficulty handling ambigous sale requests from email body.
 
 [https://github.com/cshwk2020/odoo/tree/19.0/addons/automation_sale_monitoring](https://github.com/cshwk2020/odoo/tree/19.0/addons/automation_sale_monitoring)
 
+- model/sale_monitoring.py : keep track of status for auto-creating sale order record, and FK from sale_monitoring to sale_order record. 
+
+- model/sale_order_inherit.py : add orm navigtion from sale_order to sale_monitoring record.
+
+- views/sale_monitoring_views.xml : list view and form view for sale_monitoring records.
+
+
 ---
 
 workflow summary: 
