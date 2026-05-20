@@ -38,7 +38,7 @@ Gmail Received ( N8N ) → Parser (LLM) → Matching ODOO products Embeddings (R
 > Business Benefits:
 
 - Reduce manual data entry
-- Improve accuracy
+- Improve productivity and time saving
 
 
 > Our Test Cases covering three different scenarios:
