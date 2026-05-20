@@ -9,9 +9,9 @@ class Scenario(Enum):
     PARTIAL = "partial"
 
 # REAL AI CALL OR MOCK 
-MODE_REAL = True
+MODE_REAL = False
 # TEST CASES: INVALID / VALID / PARTIAL
-SCENARIO = Scenario.PARTIAL
+SCENARIO = Scenario.VALID
 
 
 # AI DEEPSEEK

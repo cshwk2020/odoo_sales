@@ -4,8 +4,8 @@ import base64
 from .globals import progress_queue, stop_flag
 from .app_utils import debugText, mask_password
 from .vault_utils import vault_get_odoo_user, vault_get_odoo_pass
-from .ai_parse_utils import mock_ai_convert_text_to_json, run_ai_convert_text_to_json
-from .rag_mmr_utils import mock_mmr_pipeline, run_mmr_pipeline
+from .ai_parse_utils import run_ai_convert_text_to_json
+from .rag_mmr_utils import run_mmr_pipeline
 from .odoo_utils import create_sale_order 
 
 app = Flask(__name__, template_folder='Template')
@@ -17,7 +17,6 @@ def run_job(text_prompt, odoo_user, odoo_pass):
     debugText("text_prompt: " + text_prompt)
 
     # Step 1: parse
-    #parsed_items = mock_ai_convert_text_to_json(text_prompt)
     parsed_items = run_ai_convert_text_to_json(text_prompt)
 
     debugText("parsed_items: ")
@@ -26,7 +25,6 @@ def run_job(text_prompt, odoo_user, odoo_pass):
     if stop_flag.is_set(): return
 
     # Step 2: run pipeline
-    #sale_items = mock_mmr_pipeline(parsed_items)
     sale_items = run_mmr_pipeline(parsed_items)
     debugText("sale_items: ")
     debugText(sale_items)
@@ -37,38 +35,12 @@ def run_job(text_prompt, odoo_user, odoo_pass):
     debugText("odoo_user: " + odoo_user)
     debugText("odoo_pass: " + odoo_pass)
     debugText(sale_items)
-    odoo_result = create_sale_order(odoo_user, odoo_pass, sale_items)
-    
-    #
-    debugText("odoo_result: ")
-    if "attachment" in odoo_result and isinstance(odoo_result["attachment"], str):
-        preview_len = min(len(odoo_result["attachment"]), 200)
-        debugText({
-            **odoo_result,
-            "attachment": odoo_result["attachment"][:preview_len] + "...(truncated)"
-        })
-    else:
-        debugText(odoo_result)
 
-    #
-    if odoo_result["status"]:
-        # decode base64 PDF
-        pdf_data = base64.b64decode(odoo_result["attachment"])
+    sale_items = run_mmr_pipeline(parsed_items)
+    debugText("sale_items: ")
+    debugText(sale_items)
 
-        # 確保 ./pdf/ 存在
-        os.makedirs("./pdf", exist_ok=True)
 
-        # 存檔，檔名可以用 order_id 或 timestamp
-        order_id = odoo_result["order_id"]
-        filename = f"./pdf/SO_{order_id}.pdf"
-        with open(filename, "wb") as f:
-            f.write(pdf_data)
-
-        debugText(f"PDF saved to {filename}")
-    else:
-        debugText(f"Sale order creation failed: {odoo_result['msg']}")
-   
-     
 
 
 @app.route('/')
