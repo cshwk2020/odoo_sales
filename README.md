@@ -50,6 +50,22 @@ from email body to auto-creating sale order records in ODOO backend.
 
 [https://github.com/cshwk2020/odoo_sales/tree/main](https://github.com/cshwk2020/odoo_sales/tree/main)
 
+- config.py : all important key configuration such as LLM ApiKey, odoo admin and password, etc.
+
+- ms.py : microservice of python flask to receive webhook from n8n Gmail on_recv trigger. 
+
+- ai_parse_utils.py : LLM parsing email body text into cleaned JSON list, and related mock LLM API functions.
+
+- rag_mmr_utils.py : RAG matching cleaned JSON list with odoo product listing embedding in chroma vector store, and related mock RAG API functions.
+
+- rag_upsert.py : ONCE OFF initial convert odoo product listing into embedding in chroma vector store. 
+
+- odoo_utils.py : odoo related functions such as create sale order, etc.
+
+- vault_utils.py : security hvac utils to get sensitive information such as LLM ApiKey and password from vault instead of hardcode in source code.
+
+- test/* : unit testing by pytest -s
+
 
 ### - ODOO module : automation_sale_monitoring 
     
