@@ -1049,16 +1049,13 @@ def vault_get_deepseek_key():
 
 ## Appendix: Next Future Iteration
 
-```
 - For current iteration, we focus in automation pipeline of N8N--FLASK--LLM--RAG--ODOO.
-```
+
 
 >  For next iteration, we focus in API Security Improvement
 
-```
 - Email URLs, [ Reply Link ] and [ Manual Fix ] need to be protected by Google cloud callback 
 or other security mechanism such as JWT.
 
 
-```
 
