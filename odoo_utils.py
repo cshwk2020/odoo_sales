@@ -9,7 +9,7 @@ from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-from .config import ODOO_BASE_URL, ODOO_DB
+from .config import ODOO_BASE_URL, ODOO_DB, MS_BASE_URL
 from .config import vault_get_odoo_user, vault_get_odoo_pass
 from .app_utils import debugText
 from .email_utils import gmail_send
@@ -193,8 +193,8 @@ def send_notify_email(staff_email, sale_order_id, email_data_json):
         for l in order_lines
     ])
 
-    confirm_url = f"http://127.0.0.1:5000/confirm_reply/{sale_order_id}"
-    fix_url = f"http://localhost:8069/odoo/sales/{sale_order_id}"
+    confirm_url = f"{MS_BASE_URL}/confirm_reply/{sale_order_id}"
+    fix_url = f"{ODOO_BASE_URL}/odoo/sales/{sale_order_id}"
 
     html_body = f"""
     <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
@@ -295,12 +295,12 @@ def send_notify_email_failed(staff_email, monitoring_id, email_data_json):
         )
         if action_ids:
             action_id = action_ids[0]
-            monitoring_fix_url = f"http://localhost:8069/web#action={action_id}&id={monitoring_id}&model=sale.monitoring&view_type=form"
+            monitoring_fix_url = f"{ODOO_BASE_URL}/web#action={action_id}&id={monitoring_id}&model=sale.monitoring&view_type=form"
         else:
-            monitoring_fix_url = f"http://localhost:8069/web#model=sale.monitoring&id={monitoring_id}&view_type=form"
+            monitoring_fix_url = f"{ODOO_BASE_URL}/web#model=sale.monitoring&id={monitoring_id}&view_type=form"
     except Exception as e:
         debugText(f"send_notify_email_failed: action lookup failed: {e}")
-        monitoring_fix_url = f"http://localhost:8069/web#model=sale.monitoring&id={monitoring_id}&view_type=form"
+        monitoring_fix_url = f"{ODOO_BASE_URL}/web#model=sale.monitoring&id={monitoring_id}&view_type=form"
 
     # Build email
     mime_msg = MIMEMultipart()

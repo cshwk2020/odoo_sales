@@ -4,6 +4,8 @@ from transformers import AutoTokenizer, AutoModel
 import torch.nn.functional as F
 import xmlrpc.client
 import chromadb
+from .config import ODOO_BASE_URL
+from .vault_utils import vault_get_odoo_user, vault_get_odoo_pass
 
 # -----------------------------
 # 0. CONFIGURATION & PATHS
@@ -12,10 +14,10 @@ PATH_BASE = "/Volumes/sdcard/PORTFOLIO_2026/PY3.10_BASE"
 PATH_MODEL = f"{PATH_BASE}/embedding_model/all-MiniLM-L6-v2"
 PATH_CHROMA_STORE = f"{PATH_BASE}/embedding_chrome_store/all-MiniLM-L6-v2"
 
-URL = "http://localhost:8069"
+URL = ODOO_BASE_URL
 DB = "odoo"
-USERNAME = "admin"
-PASSWORD = "pass"
+USERNAME = vault_get_odoo_user()
+PASSWORD = vault_get_odoo_pass()
 
 # -----------------------------
 # 1. EMBEDDING LOGIC
@@ -54,6 +56,7 @@ try:
         {'fields': ['id', 'name', 'default_code', 'description', 'qty_available']}
     )
     print(f"Fetched {len(products)} products.")
+
 except Exception as e:
     print(f"Odoo Error: {e}")
     products = []

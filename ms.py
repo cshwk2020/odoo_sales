@@ -7,6 +7,7 @@ from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
+from .config import MS_BASE_URL, BOOSTRAP_CSS_URL
 from .globals import progress_queue, stop_flag
 from .app_utils import debugText
 from .vault_utils import vault_get_odoo_user, vault_get_odoo_pass
@@ -88,7 +89,8 @@ def gmail_webhook():
         debugText("AFTER send_notify_email...order_lines=={order_lines}")
 
         #
-        pdf_path = f"http://127.0.0.1:5000/pdf/{filename}"
+        #pdf_path = f"http://127.0.0.1:5000/pdf/{filename}"
+        pdf_path = f"{MS_BASE_URL}/pdf/{filename}"
 
 
     else:
@@ -269,14 +271,14 @@ def confirm_reply_process(order_id):
 
 
  
-
+ 
 @app.route("/confirm_reply/<int:order_id>", methods=["GET"])
 def confirm_reply(order_id):
     # 第一頁：即時顯示 spinner + JS call 真正處理 endpoint
     return render_template_string("""
     <html>
     <head>
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+      <link href="{{ bootstrap_url }}" rel="stylesheet">
     </head>
     <body class="container mt-5">
       <div id="status" class="d-flex align-items-center">
@@ -296,7 +298,7 @@ def confirm_reply(order_id):
       </script>
     </body>
     </html>
-    """, order_id=order_id)
+    """, order_id=order_id, bootstrap_url=BOOSTRAP_CSS_URL)
 
 
 

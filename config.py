@@ -23,8 +23,13 @@ LLM_API_URL = "https://api.deepseek.com/chat/completions"
 ODOO_BASE_URL = "http://localhost:8069"
 ODOO_DB = "odoo"
 
+# microservice flask 
+MS_BASE_URL = "http://127.0.0.1:5000"
+
 # RAG SETTING
 PATH_BASE = "/Volumes/sdcard/PORTFOLIO_2026/PY3.10_BASE"
 PATH_MODEL = f"{PATH_BASE}/embedding_model/all-MiniLM-L6-v2"
 PATH_CHROMA_STORE = f"{PATH_BASE}/embedding_chrome_store/all-MiniLM-L6-v2"
 
+#
+BOOSTRAP_CSS_URL = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
