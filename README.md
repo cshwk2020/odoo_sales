@@ -55,8 +55,7 @@ Gmail Received ( N8N ) → Parser (LLM) → Matching ODOO products Embeddings (R
 - Self‑Query Retriever
 - Parent Doc Retriever
 - MMR Retriever (*)
-
-we compared and selected MMR Retriever, explained in appendix section at the end.
+- we compared and selected MMR Retriever, explained in appendix section at the end.
 
 
 ---
