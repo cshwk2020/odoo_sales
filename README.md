@@ -34,6 +34,8 @@ Gmail Received ( N8N ) → Parser (LLM) → Matching ODOO products Embeddings (R
 
 - staff only need one click to reply to sender from auto created sale quotation.
 
+- to compensate potential pitfall of email automation processing pipeline, staff might use ODOO sale monitoring module to keep track of status of all automated email sale order processing, and manual fix quotation if needed, before click [ REPLY CONFIRM ] button.
+
 
 > Business Benefits:
 
