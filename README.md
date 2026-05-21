@@ -148,7 +148,7 @@ Here we simplfied code snippets by trimming away some details for improved readb
 
 ![](./odoo_sales_doc/setting/n8n_node_1.jpg)
  
-> n8n Http Request Node: we pass entire content type JSON as {{$json}} to http://127.0.0.1:5000/gmail_webhook of flask microservice ms.py
+> n8n Http Request Node: we pass entire email body content type JSON as {{$json}} to http://127.0.0.1:5000/gmail_webhook of flask microservice ms.py. We extract parameters in flask ms.py and not inside n8n.
 
  ![](./odoo_sales_doc/setting/n8n_node_2.jpg)
  
