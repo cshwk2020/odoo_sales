@@ -9,7 +9,7 @@ from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-from .config import ODOO_BASE_URL, ODOO_DB, MS_BASE_URL
+from .config import ODOO_BASE_URL, ODOO_DB, MS_BASE_URL, GMAIL_INBOX_BASE_URL
 from .config import vault_get_odoo_user, vault_get_odoo_pass
 from .app_utils import debugText
 from .email_utils import gmail_send
@@ -179,11 +179,11 @@ def send_notify_email(staff_email, sale_order_id, email_data_json):
 
     # Gmail shortcut URL
     if gmail_id:
-        gmail_shortcut_url = f"https://mail.google.com/mail/u/0/#inbox/{gmail_id}"
+        gmail_shortcut_url = f"{GMAIL_INBOX_BASE_URL}/{gmail_id}"
     elif threadid:
-        gmail_shortcut_url = f"https://mail.google.com/mail/u/0/#inbox/{threadid}"
+        gmail_shortcut_url = f"{GMAIL_INBOX_BASE_URL}/{threadid}"
     else:
-        gmail_shortcut_url = "https://mail.google.com/mail/u/0/#inbox"
+        gmail_shortcut_url = f"{GMAIL_INBOX_BASE_URL}"
 
     # 自動生成 order_lines
     order_lines = get_sale_order_lines(odoo_user, odoo_pass, sale_order_id)
@@ -271,11 +271,11 @@ def send_notify_email_failed(staff_email, monitoring_id, email_data_json):
 
     # Gmail shortcut
     if gmail_id:
-        gmail_shortcut_url = f"https://mail.google.com/mail/u/0/#inbox/{gmail_id}"
+        gmail_shortcut_url = f"{GMAIL_INBOX_BASE_URL}/{gmail_id}"
     elif threadid:
-        gmail_shortcut_url = f"https://mail.google.com/mail/u/0/#inbox/{threadid}"
+        gmail_shortcut_url = f"{GMAIL_INBOX_BASE_URL}/{threadid}"
     else:
-        gmail_shortcut_url = "https://mail.google.com/mail/u/0/#inbox"
+        gmail_shortcut_url = f"{GMAIL_INBOX_BASE_URL}"
 
     # ✅ Get Odoo credentials from Vault
     odoo_user = vault_get_odoo_user()

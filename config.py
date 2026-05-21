@@ -11,13 +11,16 @@ class Scenario(Enum):
 # REAL AI CALL OR MOCK 
 MODE_REAL = False
 # TEST CASES: INVALID / VALID / PARTIAL
-SCENARIO = Scenario.VALID
+SCENARIO = Scenario.INVALID
 
 
 # AI DEEPSEEK
 LLM_API_MODEL_VER = "deepseek-v4-flash"
 LLM_API_KEY = vault_get_deepseek_key()
 LLM_API_URL = "https://api.deepseek.com/chat/completions"
+
+# GOOGLE
+GMAIL_INBOX_BASE_URL = "https://mail.google.com/mail/u/0/#inbox"
 
 # ODOO SETTING
 ODOO_BASE_URL = "http://localhost:8069"
