@@ -143,8 +143,15 @@ Here we simplfied code snippets by trimming away some details for improved readb
 ### - n8n intercept the sale order email and pass to our microservice ms.py
 
 ![](./odoo_sales_doc/setting/n8n_overall_workflow.jpg)
- 
 
+> n8n Gmail Trigger: Message Received 
+
+![](./odoo_sales_doc/setting/n8n_node_1.jpg)
+ 
+> n8n Http Request Node: we pass entire content type JSON as {{$json}} to http://127.0.0.1:5000/gmail_webhook of flask microservice ms.py
+
+ ![](./odoo_sales_doc/setting/n8n_node_2.jpg)
+ 
 
 ### - our microservice ms.py, gmail_webhook start processing
 
