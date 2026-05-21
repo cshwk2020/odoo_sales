@@ -50,7 +50,13 @@ Gmail Received ( N8N ) → Parser (LLM) → Matching ODOO products Embeddings (R
 - Some line items valid
 
 
+> RAG Choice of Retriever
 
+- Self‑Query Retriever
+- Parent Doc Retriever
+- MMR Retriever (*)
+
+we compared and selected MMR Retriever, explained in appendix section at the end.
 
 
 ---
@@ -1081,7 +1087,32 @@ def vault_get_deepseek_key():
     return deepseek_key
 ```
 
+---
+---
 
+## RAG Choice of Retriever
+
+> Self‑Query Retriever
+
+Purpose: Converts a query into metadata filters (e.g., year, region).
+
+Use case fit: In our scenario, users only enter partial names or codes, and metadata is limited → not very helpful.
+
+> Parent Doc Retriever
+
+Purpose: Retrieves chunks but returns the entire parent document, ensuring full context.
+
+Use case fit: Each line item is an independent product, not necessarily tied to the same parent.
+
+Not suitable: Parent docs may contain unrelated line items, so it doesn’t add much value here.
+
+> MMR Retriever (*)
+
+Purpose: Prevents top‑K results from being overly similar, introduces diverse variations.
+
+Use case fit: Users may input typos (e.g., “aluminum fold” vs “aluminum foil”). MMR can feed multiple variations to the LLM, enabling a higher‑quality top‑1 decision.
+
+Best fit: Handles fuzzy queries and partial codes, improving accuracy beyond simple vector distance.
 
 ---
 ---
