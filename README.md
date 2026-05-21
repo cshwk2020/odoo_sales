@@ -50,7 +50,7 @@ Gmail Received ( N8N ) → Parser (LLM) → Matching ODOO products Embeddings (R
 - Some line items valid
 
 
-> RAG Choice of Retriever
+> RAG Choice of Retriever to match email body query with odoo products:
 
 - Self‑Query Retriever
 - Parent Doc Retriever
