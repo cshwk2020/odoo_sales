@@ -1,6 +1,8 @@
 
 ## Portfolio Project: automate incoming email of sale request to draft ODOO sale quotation records
 
+[Watch Demo on YouTube](https://youtu.be/xs-4Bi0D0aM)
+
 > Introduction: 
 
 - Sales teams often receive customer requests through email, 
