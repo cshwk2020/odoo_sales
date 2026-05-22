@@ -1,10 +1,8 @@
 
 ## Portfolio Project: automate incoming email of sale request to draft ODOO sale quotation records
 
-[![Watch the video](./odoo_sales_doc/uc_all_valid/gmail_s2a_uc_all_valid.jpg)](https://www.youtube.com/watch?v=xs-4Bi0D0aM)
+[![Click to Watch the youtube demo](./odoo_sales_doc/uc_all_valid/gmail_s2a_uc_all_valid.jpg)](https://www.youtube.com/watch?v=xs-4Bi0D0aM)
 
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/xs-4Bi0D0aM" frameborder="0" allowfullscreen></iframe>
 
 
 > Introduction: 
